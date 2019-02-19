@@ -1,0 +1,15 @@
+variables:
+  IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+  HUB_IMAGE: lu1as/named:latest
+
+stages:
+  - build
+
+build_image:
+  stage: build
+  tags:
+    - docker
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build -t $IMAGE .
+    - docker push $IMAGE
