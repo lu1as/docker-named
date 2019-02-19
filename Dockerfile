@@ -18,7 +18,7 @@ RUN apk --update --no-cache add alpine-sdk openssl-dev geoip-dev libxml2-dev jso
 		--enable-linux-caps \
 		--with-libxml2 \
 		--with-libjson \
-        --with-geoip \
+		--with-geoip \
 		--enable-threads \
 		--enable-filter-aaaa \
 		--enable-ipv6 \
@@ -28,7 +28,7 @@ RUN apk --update --no-cache add alpine-sdk openssl-dev geoip-dev libxml2-dev jso
 		--with-randomdev=/dev/random \
 		--mandir=/usr/share/man \
 		--infodir=/usr/share/info \
-    && make \
+	&& make \
 	&& make install
 
 # use clean image
