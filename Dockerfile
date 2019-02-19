@@ -41,7 +41,6 @@ LABEL version=${BIND_VERSION}
 # copy compiled stuff and geoip databases
 COPY --from=builder /usr/local/src/bind /usr
 COPY --from=builder /etc/bind /etc/bind
-COPY geoip /usr/share/GeoIP
 
 # install dependencies
 RUN apk --update --no-cache add libgcc geoip libxml2 json-c libcap libcrypto1.1 musl zlib \
@@ -51,4 +50,5 @@ RUN apk --update --no-cache add libgcc geoip libxml2 json-c libcap libcrypto1.1 
 	&& chown named:named /var/bind /var/run/named
 
 COPY named.conf /etc/bind/named.conf
+EXPOSE 53
 CMD ["/usr/sbin/named", "-g", "-u", "named", "-c", "/etc/bind/named.conf"]
