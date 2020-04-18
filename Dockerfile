@@ -1,11 +1,11 @@
 FROM alpine:3.9 as builder
 
-ARG BIND_VERSION="9-11-5-p1"
+ARG BIND_VERSION="9.11.18"
 
 # get build dependencies and compile source
 RUN apk --update --no-cache add alpine-sdk openssl-dev geoip-dev libxml2-dev json-c-dev perl linux-headers \
 	&& mkdir -p /usr/local/src/bind \
-	&& wget -O /usr/local/src/bind.tar.gz https://www.isc.org/downloads/file/bind-${BIND_VERSION}/?version=tar-gz \
+    && wget -O /usr/local/src/bind.tar.gz https://downloads.isc.org/isc/bind9/${BIND_VERSION}/bind-${BIND_VERSION}.tar.gz \
 	&& tar -xf /usr/local/src/bind.tar.gz -C /usr/local/src \
 	&& cd /usr/local/src/bind-* \
 	&& ./configure \
@@ -25,6 +25,7 @@ RUN apk --update --no-cache add alpine-sdk openssl-dev geoip-dev libxml2-dev jso
 		--enable-shared \
 		--enable-static \
 		--with-libtool \
+		--without-python \
 		--with-randomdev=/dev/random \
 		--mandir=/usr/share/man \
 		--infodir=/usr/share/info \
